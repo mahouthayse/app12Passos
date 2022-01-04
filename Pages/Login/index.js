@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
 import {Button} from "react-native-paper";
 import {BlueView, WhiteText} from "../../Style/globalStyles";
@@ -7,15 +7,30 @@ import global from "../../Style/global";
 import colors from "../../Style/colors";
 import Logo from "../../assets/Logo.png"
 import api from '../../services/api';
+import {useNavigation} from "@react-navigation/native";
+import {AlertBar} from "../../Components/AlertBar";
 
 export default function Login() {
-    const [data, setData] = React.useState({ email: null, password: null });
+    const { navigate } = useNavigation();
+    const [data, setData] = useState({ email: null, password: null });
+    const [alertSnackBar, setAlertSnackBar] = useState({
+        visible: false,
+        message: undefined,
+        snackbarType: undefined,
+    });
 
     async function handleLogin() {
         try {
             await api.post('/auth/login', data);
+            navigate("Home");
         } catch (error) {
             console.log(error);
+            console.log(error);
+            setAlertSnackBar({
+                visible: true,
+                message: error?.response?.data?.error,
+                snackbarType: "fail",
+            });
         }
     }
 
@@ -46,11 +61,16 @@ export default function Login() {
 
                 <View>
                     <Button mode='contained' style={global.buttonSecondary} labelStyle={global.labelSecondary} onPress={handleLogin} contentStyle={{width:'100%', height:45}}>Entrar</Button>
-                    <Button mode='contained' style={global.buttonPrimary} labelStyle={global.labelPrimary} onPress={() =>{ console.log('ola')}} contentStyle={{width:'100%', height:45}}>Entrar com Google</Button>
                 </View>
 
-                <Button mode='text' labelStyle={global.labelPrimary} onPress={() => console.log('hello')}>CRIAR CONTA</Button>
+                <Button mode='text' labelStyle={global.labelPrimary} onPress={() => navigate("Cadastro")}>CRIAR CONTA</Button>
             </View>
+            <AlertBar
+                visible={alertSnackBar.visible}
+                message={alertSnackBar.message}
+                type={alertSnackBar.snackbarType}
+                onChange={() => setAlertSnackBar({ ...alertSnackBar, visible: false })}
+            />
         </BlueView>
     );
 }

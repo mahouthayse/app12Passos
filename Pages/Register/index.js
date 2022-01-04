@@ -1,16 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
 import {Button} from "react-native-paper";
 import {BlueView, WhiteText} from "../../Style/globalStyles";
 import global from "../../Style/global";
 import colors from "../../Style/colors";
 import Logo from "../../assets/Logo.png"
+import { useNavigation } from "@react-navigation/native";
+import api from "../../services/api";
+import {AlertBar} from "../../Components/AlertBar";
 
 export default function Register() {
-    const [name, setName] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const { navigate } = useNavigation();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [alertSnackBar, setAlertSnackBar] = useState({
+        visible: false,
+        message: undefined,
+        snackbarType: undefined,
+    });
+
+    async function handleRegister() {
+        try {
+            await api.post('/auth/store', {
+                name,
+                email,
+                password
+            });
+            navigate("Home");
+        } catch (error) {
+            console.log(error);
+            setAlertSnackBar({
+                visible: true,
+                message: error?.response?.data?.error,
+                snackbarType: "fail",
+            });
+        }
+    }
 
     return (
         <BlueView>
@@ -45,11 +72,17 @@ export default function Register() {
                 </View>
 
                 <View>
-                    <Button mode='contained' style={global.buttonSecondary} labelStyle={global.labelSecondary} onPress={() =>{ console.log('ola')}} contentStyle={{width:'100%', height:45}}>Cadastrar</Button>
+                    <Button mode='contained' style={global.buttonSecondary} labelStyle={global.labelSecondary} onPress={handleRegister} contentStyle={{width:'100%', height:45}}>Cadastrar</Button>
                 </View>
 
-                <Button mode='text' labelStyle={global.labelPrimary} onPress={() => console.log('hello')}>JÁ POSSUI CONTA? ENTRAR</Button>
+                <Button mode='text' labelStyle={global.labelPrimary} onPress={() => navigate("Login")}>JÁ POSSUI CONTA? ENTRAR</Button>
             </View>
+            <AlertBar
+                visible={alertSnackBar.visible}
+                message={alertSnackBar.message}
+                type={alertSnackBar.snackbarType}
+                onChange={() => setAlertSnackBar({ ...alertSnackBar, visible: false })}
+            />
         </BlueView>
     );
 }
