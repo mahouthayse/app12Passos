@@ -3,9 +3,12 @@ import React from 'react';
 import {TextPrimary, TitleManuscript, TitlePrimary, ViewPrimary} from "../../../Style/globalStyles";
 import {ScrollView,View, Image} from "react-native";
 import Passo1 from "../../../assets/passo1.png";
+import NavBar from "../../../Components/NavBar";
 
 export default function Step1() {
     return (
+        <View style={{flex:1}}>
+            <NavBar title="Passo 1"/>
         <ScrollView >
 
             <Image source={Passo1} style={{ width:'95%', alignSelf:'flex-start', borderTopRightRadius: 15, borderBottomRightRadius:15}}/>
@@ -50,6 +53,7 @@ export default function Step1() {
 
             </View>
         </ScrollView>
+        </View>
     );
 }
 

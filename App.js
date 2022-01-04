@@ -18,6 +18,8 @@ import {
   DancingScript_700Bold
 } from '@expo-google-fonts/dancing-script';
 import Home from "./Pages/Home";
+import Step12 from "./Pages/Steps/Step12";
+import HomeSteps from "./Pages/Steps/HomeSteps";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -38,7 +40,7 @@ export default function App() {
     return <AppLoading/>
   } else {
     return (
-        <Home/>
+        <HomeSteps/>
     );
   }
 }
