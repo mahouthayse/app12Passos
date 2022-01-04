@@ -6,10 +6,18 @@ import {BlueView, WhiteText} from "../../Style/globalStyles";
 import global from "../../Style/global";
 import colors from "../../Style/colors";
 import Logo from "../../assets/Logo.png"
+import api from '../../services/api';
 
 export default function Login() {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [data, setData] = React.useState({ email: null, password: null });
+
+    async function handleLogin() {
+        try {
+            await api.post('/auth/login', data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <BlueView>
@@ -20,13 +28,13 @@ export default function Login() {
                     <WhiteText style={{alignSelf:'center', marginVertical:16}}>Faça login para acessar</WhiteText>
                     <TextInput
                         type="email"
-                        onChangeText={(email) => setEmail(email.toLowerCase().trim())}
+                        onChangeText={(email) => setData({ ...data, email: email.toLowerCase().trim() })}
                         style={global.inputPrimary}
                         placeholder='E-mail'
                         placeholderTextColor={colors.white}
                     />
                     <TextInput
-                        onChangeText={(password) => setPassword(password)}
+                        onChangeText={(password) => setData({ ...data, password })}
                         type="password"
                         secureTextEntry={true}
                         style={global.inputPrimary}
@@ -37,7 +45,7 @@ export default function Login() {
                 </View>
 
                 <View>
-                    <Button mode='contained' style={global.buttonSecondary} labelStyle={global.labelSecondary} onPress={() =>{ console.log('ola')}} contentStyle={{width:'100%', height:45}}>Entrar</Button>
+                    <Button mode='contained' style={global.buttonSecondary} labelStyle={global.labelSecondary} onPress={handleLogin} contentStyle={{width:'100%', height:45}}>Entrar</Button>
                     <Button mode='contained' style={global.buttonPrimary} labelStyle={global.labelPrimary} onPress={() =>{ console.log('ola')}} contentStyle={{width:'100%', height:45}}>Entrar com Google</Button>
                 </View>
 
