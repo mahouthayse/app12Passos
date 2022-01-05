@@ -1,11 +1,12 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import { View } from 'react-native';
 import { ActivityIndicator } from "react-native-paper";
 import colors from '../Style/colors';
 
-const AuthContext = createContext({});
+const AuthContext = createContext({ token: null, setToken: () => {} });
 
 export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(null);
 
   if (!true) {
     return (
@@ -14,7 +15,7 @@ export const AuthProvider = ({ children }) => {
       </View>
     );
   } else {
-    return <AuthContext.Provider value={{ signed: false }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ token, setToken }}>{children}</AuthContext.Provider>;
   }
 };
 

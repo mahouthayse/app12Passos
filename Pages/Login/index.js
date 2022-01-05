@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
+import React, {useContext, useState} from 'react';
+import { View, TextInput, Image} from 'react-native';
 import {Button} from "react-native-paper";
 import {BlueView, WhiteText} from "../../Style/globalStyles";
 import global from "../../Style/global";
@@ -9,8 +8,10 @@ import Logo from "../../assets/Logo.png"
 import api from '../../services/api';
 import {useNavigation} from "@react-navigation/native";
 import {AlertBar} from "../../Components/AlertBar";
+import AuthContext from '../../contexts/auth';
 
 export default function Login() {
+    const { setToken } = useContext(AuthContext);
     const { navigate } = useNavigation();
     const [data, setData] = useState({ email: null, password: null });
     const [alertSnackBar, setAlertSnackBar] = useState({
@@ -21,10 +22,9 @@ export default function Login() {
 
     async function handleLogin() {
         try {
-            await api.post('/auth/login', data);
-            navigate("Home");
+            const response = await api.post('/auth/login', data);
+            setToken(response.data.token);
         } catch (error) {
-            console.log(error);
             console.log(error);
             setAlertSnackBar({
                 visible: true,
