@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, View, TextInput, Image} from 'react-native';
 import {Button} from "react-native-paper";
 import {BlueView, WhiteText} from "../../Style/globalStyles";
@@ -9,8 +9,10 @@ import Logo from "../../assets/Logo.png"
 import { useNavigation } from "@react-navigation/native";
 import api from "../../services/api";
 import {AlertBar} from "../../Components/AlertBar";
+import AuthContext from "../../contexts/auth";
 
 export default function Register() {
+    const { userData, setUserData } = useContext(AuthContext);
     const { navigate } = useNavigation();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -23,11 +25,12 @@ export default function Register() {
 
     async function handleRegister() {
         try {
-            await api.post('/auth/store', {
+            const response = await api.post('/auth/store', {
                 name,
                 email,
                 password
             });
+            setUserData({...userData, id: response.data._id, token: response.data.token, name: response.data.name});
             navigate("Home");
         } catch (error) {
             console.log(error);

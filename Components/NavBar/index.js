@@ -2,11 +2,13 @@ import {Appbar} from "react-native-paper";
 import React from "react"
 import {StyleSheet} from "react-native";
 import colors from "../../Style/colors";
+import {useNavigation} from "@react-navigation/native";
 
-const NavBar = ({title}) =>{
+const NavBar = ({title, url}) =>{
+    const { navigate } = useNavigation();
     return(
             <Appbar.Header style={styles.bottom}>
-                <Appbar.Action icon="chevron-left" size={32} onPress={() => console.log('Pressed archive')}/>
+                <Appbar.Action icon="chevron-left" size={32} onPress={() => navigate(url) }/>
                 <Appbar.Content title={title} titleStyle={styles.titleText}/>
 
         </Appbar.Header>

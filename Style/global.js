@@ -38,8 +38,6 @@ const global = StyleSheet.create({
         fontSize: 14,
     }
 
-
-
 });
 
 export default global;

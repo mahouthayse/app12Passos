@@ -3,10 +3,12 @@ import { View } from 'react-native';
 import { ActivityIndicator } from "react-native-paper";
 import colors from '../Style/colors';
 
-const AuthContext = createContext({ token: null, setToken: () => {} });
+const AuthContext = createContext({ token: null, setToken: () => {}, id: null, name: null });
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
+  const [userData, setUserData] = useState({token: null, setToken: () => {}, id: null, name: null});
+
 
   if (!true) {
     return (
@@ -15,7 +17,7 @@ export const AuthProvider = ({ children }) => {
       </View>
     );
   } else {
-    return <AuthContext.Provider value={{ token, setToken }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ userData, setUserData }}>{children}</AuthContext.Provider>;
   }
 };
 

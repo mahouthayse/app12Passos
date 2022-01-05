@@ -6,6 +6,6 @@ export default {
     text: '#8D92A3',
     title:'#22242A',
     grey: '#CDCDD7',
-    succes: '51DC8E',
+    success: '#51DC8E',
     error: '#EF4B5F',
 }

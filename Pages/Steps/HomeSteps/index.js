@@ -16,8 +16,11 @@ import Passo11 from "../../../assets/passo11.png";
 import Passo12 from "../../../assets/passo12.png";
 import NavBar from "../../../Components/NavBar";
 import colors from "../../../Style/colors";
+import {useNavigation} from "@react-navigation/native";
 
 export default function HomeSteps() {
+    const { navigate } = useNavigation();
+
     const steps = [
         {
             title: 'Passo 1',
@@ -70,15 +73,17 @@ export default function HomeSteps() {
     ]
 
     return (
+
+
         <View style={{flex:1}}>
-            <NavBar title="Os Doze Passos"/>
+            <NavBar title="Os Doze Passos" url="Home"/>
             <ScrollView>
                <ViewPrimary>
                    <View style={{width:'95%', flexDirection:'row', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap'}}>
                        {
                            steps.map( step => {
                                return(
-                                   <TouchableOpacity style={{borderRadius: 20}} key={step.title}>
+                                   <TouchableOpacity style={{borderRadius: 20}} key={step.title} onPress={() => navigate(step.title)}>
                                        <ImageBackground source={step.img} style={{width:150, height:150, alignItems: 'center', justifyContent:'center',  marginVertical:16}}
                                                         imageStyle={{borderRadius:10}}>
                                            <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:30}}>{step.title}</TitlePrimary>

@@ -8,7 +8,7 @@ import NavBar from "../../../Components/NavBar";
 export default function Step3() {
     return (
         <View style={{flex:1}}>
-            <NavBar title="Passo 3"/>
+            <NavBar title="Passo 3" url="Passos"/>
         <ScrollView >
 
             <Image source={Passo3} style={{ width:'95%', alignSelf:'flex-start', borderTopRightRadius: 15, borderBottomRightRadius:15}}/>

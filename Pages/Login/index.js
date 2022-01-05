@@ -11,7 +11,7 @@ import {AlertBar} from "../../Components/AlertBar";
 import AuthContext from '../../contexts/auth';
 
 export default function Login() {
-    const { setToken } = useContext(AuthContext);
+    const { userData, setUserData } = useContext(AuthContext);
     const { navigate } = useNavigation();
     const [data, setData] = useState({ email: null, password: null });
     const [alertSnackBar, setAlertSnackBar] = useState({
@@ -23,7 +23,8 @@ export default function Login() {
     async function handleLogin() {
         try {
             const response = await api.post('/auth/login', data);
-            setToken(response.data.token);
+            setUserData({...userData, id: response.data._id, token: response.data.token, name: response.data.name});
+            navigate("Home");
         } catch (error) {
             console.log(error);
             setAlertSnackBar({
@@ -38,7 +39,6 @@ export default function Login() {
         <BlueView>
             <View style={{width:'90%',height:'100%', display: 'flex', flexDirection:'column', justifyContent:'space-around'}}>
                     <Image source={Logo} style={{alignSelf:'center', height:80, width:80}}/>
-
                 <View>
                     <WhiteText style={{alignSelf:'center', marginVertical:16}}>Faça login para acessar</WhiteText>
                     <TextInput
@@ -56,11 +56,12 @@ export default function Login() {
                         placeholder='Senha'
                         placeholderTextColor={colors.white}
                     />
-                    <Button mode='text' style={{alignSelf:'flex-start'}} labelStyle={global.labelPrimary} onPress={() => console.log('hello')}>Esqueci a senha</Button>
+                    <Button mode='text' style={{alignSelf:'flex-start'}} labelStyle={global.labelPrimary} onPress={() => navigate("Redefinir senha")}>Esqueci a senha</Button>
                 </View>
 
                 <View>
                     <Button mode='contained' style={global.buttonSecondary} labelStyle={global.labelSecondary} onPress={handleLogin} contentStyle={{width:'100%', height:45}}>Entrar</Button>
+
                 </View>
 
                 <Button mode='text' labelStyle={global.labelPrimary} onPress={() => navigate("Cadastro")}>CRIAR CONTA</Button>

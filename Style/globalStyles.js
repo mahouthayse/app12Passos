@@ -25,7 +25,7 @@ export const TitleManuscript = styled.Text`
 
 export const TitlePrimary = styled.Text`
   font-family: bebas_regular;
-  font-size: 24px;
+  font-size: 28px;
   color: ${colors.title};
   line-height: 29px;
   margin-bottom:10px;
