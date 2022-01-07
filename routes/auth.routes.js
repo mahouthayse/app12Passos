@@ -14,7 +14,7 @@ export default function Routes() {
       <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
       <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
       <Stack.Screen name="Redefinir senha" component={ForgotPassword} options={{ headerShown: false }} />
-      <Stack.Screen name="AppRoutes" component={AppRoutes} />
+      <Stack.Screen name="AppRoutes" component={AppRoutes} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }

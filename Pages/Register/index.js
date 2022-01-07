@@ -31,7 +31,7 @@ export default function Register() {
                 password
             });
             setUserData({...userData, id: response.data._id, token: response.data.token, name: response.data.name});
-            navigate("Home");
+            navigate("AppRoutes");
         } catch (error) {
             console.log(error);
             setAlertSnackBar({
