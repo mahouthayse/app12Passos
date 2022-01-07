@@ -14,6 +14,8 @@ import Step9 from '../../Pages/Steps/Step9';
 import Step10 from '../../Pages/Steps/Step10';
 import Step11 from '../../Pages/Steps/Step11';
 import Step12 from '../../Pages/Steps/Step12';
+import PostTestimonial from "../../Pages/Testimonials/PostTestimonial";
+import TestimonialDetails from "../../Pages/Testimonials/TestimonialDetails";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +35,8 @@ export default function StackNavigation() {
       <Stack.Screen name="Passo 10" component={Step10} options={{ headerShown: false }} />
       <Stack.Screen name="Passo 11" component={Step11} options={{ headerShown: false }} />
       <Stack.Screen name="Passo 12" component={Step12} options={{ headerShown: false }} />
+      <Stack.Screen name="Escrever Relato" component={PostTestimonial} options={{ headerShown: false }} />
+      <Stack.Screen name="Detalhes do Relato" component={TestimonialDetails} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
