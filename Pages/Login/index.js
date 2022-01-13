@@ -26,10 +26,9 @@ export default function Login() {
             setUserData({...userData, id: response.data._id, token: response.data.token, name: response.data.name});
             navigate("AppRoutes");
         } catch (error) {
-            console.log(error);
             setAlertSnackBar({
                 visible: true,
-                message: error?.response?.data?.error,
+                message: error?.message,
                 snackbarType: "fail",
             });
         }
