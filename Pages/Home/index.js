@@ -34,21 +34,21 @@ export default function Home() {
                 <TouchableOpacity onPress={() =>navigate("Passos")}>
                     <ImageBackground source={Passos} style={{width:160, padding:10, height:160, alignItems: 'center', justifyContent:'center',  marginVertical:16}}
                                      imageStyle={{borderRadius:10}}>
-                        <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:30}}>Relembre os 12 Passos</TitlePrimary>
+                        <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:28}}>Relembre os 12 Passos</TitlePrimary>
                     </ImageBackground>
                 </TouchableOpacity>
 
                 <TouchableOpacity  onPress={() =>navigate("Relatos")}>
                     <ImageBackground source={Relatos} style={{width:160, padding:10, height:160, alignItems: 'center', justifyContent:'center',  marginVertical:16}}
                                      imageStyle={{borderRadius:10}}>
-                        <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:30}}>Relatos de Vivência</TitlePrimary>
+                        <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:28}}>Relatos de Vivência</TitlePrimary>
                     </ImageBackground>
                 </TouchableOpacity>
 
                 <TouchableOpacity  onPress={() =>navigate("Objetivo")}>
                     <ImageBackground source={Relatos} style={{width:160, padding:10, height:160, alignItems: 'center', justifyContent:'center',  marginVertical:16}}
                                      imageStyle={{borderRadius:10}}>
-                        <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:30}}>Defina um objetivo</TitlePrimary>
+                        <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:28}}>Defina um objetivo</TitlePrimary>
                     </ImageBackground>
                 </TouchableOpacity>
             </View>
