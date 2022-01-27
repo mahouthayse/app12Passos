@@ -23,7 +23,7 @@ export default function Home() {
                 </View>
             </View>
 
-            <View style={{display: 'flex', flexDirection:'row', width:'100%', justifyContent:'space-between'}}>
+            <View style={{display: 'flex', alignItems: 'center', flexDirection:'row', width:'100%', justifyContent:'space-between'}}>
                 <View>
                     <BlackText>23</BlackText>
                     <TextPrimary>registros no diário</TextPrimary>
