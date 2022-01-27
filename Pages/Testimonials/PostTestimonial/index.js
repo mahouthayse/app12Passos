@@ -1,8 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {useContext, useState} from 'react';
-import {StyleSheet, Text, View, TextInput, Image, ScrollView} from 'react-native';
-import {Avatar, Button} from "react-native-paper";
-import {BlackText, TextPrimary, TitlePrimary, ViewPrimary} from "../../../Style/globalStyles";
+import {View, TextInput, ScrollView} from 'react-native';
+import {Button} from "react-native-paper";
 import {useNavigation} from "@react-navigation/native";
 import NavBar from "../../../Components/NavBar";
 import global from "../../../Style/global";
