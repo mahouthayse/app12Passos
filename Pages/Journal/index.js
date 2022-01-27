@@ -67,17 +67,18 @@ const styles = StyleSheet.create({
         borderStyle:'solid',
         margin:4
     },
+    selectedChip: {
+        backgroundColor: '#BEBEBE'
+    },
     chipText:{
         fontFamily:'montserrat_semibold',
         fontSize:13,
         color:'#8D92A3'
+    },
+    selectedChipText: {
+        color: '#4b4b4b'
     }
 });
-
-const selectedChip = StyleSheet.flatten([
-    styles.chip,
-    { backgroundColor: '#BEBEBE' }
-]);
 
 export default function Journal() {
     const { userData } = useContext(AuthContext);
@@ -122,8 +123,8 @@ export default function Journal() {
                             selected={journal.mood.includes(value)}
                             onPress={() => addRemoveItemArray({ value, key: 'mood' })}
                             key={label}
-                            style={journal.mood.includes(value) ? selectedChip : styles.chip}
-                            textStyle={{ ...styles.chipText, color: journal.mood.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                            style={journal.mood.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.mood.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -137,8 +138,8 @@ export default function Journal() {
                             selected={journal.physical_activity.includes(value)}
                             onPress={() => addRemoveItemArray({ value, key: 'physical_activity'})}
                             key={label}
-                            style={journal.physical_activity.includes(value) ? selectedChip : styles.chip}
-                            textStyle={{ ...styles.chipText, color: journal.physical_activity.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                            style={journal.physical_activity.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.physical_activity.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -152,8 +153,8 @@ export default function Journal() {
                             selected={journal.sleep.includes(value)}
                             onPress={() => selectUnselect({ value, key: 'sleep' })}
                             key={label}
-                            style={journal.sleep.includes(value) ? selectedChip : styles.chip}
-                            textStyle={{ ...styles.chipText, color: journal.sleep.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                            style={journal.sleep.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.sleep.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -167,8 +168,8 @@ export default function Journal() {
                             selected={journal.feed.includes(value)}
                             onPress={() => selectUnselect({ value, key: 'feed' })}
                             key={label}
-                            style={journal.feed.includes(value) ? selectedChip : styles.chip}
-                            textStyle={{ ...styles.chipText, color: journal.feed.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                            style={journal.feed.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.feed.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -182,8 +183,8 @@ export default function Journal() {
                             selected={journal.symptoms.includes(value)}
                             onPress={() => addRemoveItemArray({ value, key: 'symptoms'})}
                             key={label}
-                            style={journal.symptoms.includes(value) ? selectedChip : styles.chip}
-                            textStyle={{ ...styles.chipText, color: journal.symptoms.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                            style={journal.symptoms.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.symptoms.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
