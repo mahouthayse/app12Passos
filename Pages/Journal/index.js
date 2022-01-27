@@ -74,24 +74,40 @@ const styles = StyleSheet.create({
     }
 });
 
+const selectedChip = StyleSheet.flatten([
+    styles.chip,
+    { backgroundColor: '#BEBEBE' }
+]);
+
 export default function Journal() {
     const { userData } = useContext(AuthContext);
     const token = userData.token;
     const [journal, setJournal] = useState({
         user: userData.id,
-        mood: [''],
+        mood: [],
         physical_activity:'',
         sleep:'',
         feed:'',
-        symptoms:[''],
+        symptoms:[],
         date: new Date(),
         observations:''
     })
 
-    function setSymptoms(index){
-        const array = []
-        array.push(index)
-        setJournal({...journal, symptoms: array})
+    function addRemoveItemArray({ value, key }) {
+        const arr = [...journal[key]];
+        const index = arr.indexOf(value);
+        if (index !== -1) arr.splice(index, 1);
+        else arr.push(value);
+        setJournal({ ...journal, [key]: arr });
+    }
+
+    function selectUnselect({ value, key }) {
+        const data = { ...journal };
+        const option = data[key];
+        if (!option) data[key] = value;
+        else if (option !== '' && option !== value) data[key] = value;
+        else data[key] = '';
+        setJournal(data);
     }
 
     return (
@@ -101,37 +117,77 @@ export default function Journal() {
 
                 <TextPrimary style={styles.label}>Como está o seu humor?</TextPrimary>
                <View style={styles.row}>
-                   {mood.map( index => {
-                       return(<Chip onPress={() => console.log('Pressed')} key={index.label} style={styles.chip} textStyle={styles.chipText}>{index.label}</Chip>)
-                   })}
+                   {mood.map(({ label, value }) => (
+                        <Chip
+                            selected={journal.mood.includes(value)}
+                            onPress={() => addRemoveItemArray({ value, key: 'mood' })}
+                            key={label}
+                            style={journal.mood.includes(value) ? selectedChip : styles.chip}
+                            textStyle={{ ...styles.chipText, color: journal.mood.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                        >
+                            {label}
+                        </Chip>
+                   ))}
                </View>
 
                 <TextPrimary style={styles.label}>Praticou atividade física?</TextPrimary>
                 <View style={styles.row}>
-                    {physicalActivity.map( index => {
-                        return( <Chip onPress={() => setJournal({...journal, physical_activity: index.value})} selected={(journal.physical_activity === index.label)} key={index.label} style={styles.chip} textStyle={styles.chipText}>{index.label}</Chip>)
-                    })}
+                    {physicalActivity.map(({ label, value }) => (
+                        <Chip
+                            selected={journal.physical_activity.includes(value)}
+                            onPress={() => addRemoveItemArray({ value, key: 'physical_activity'})}
+                            key={label}
+                            style={journal.physical_activity.includes(value) ? selectedChip : styles.chip}
+                            textStyle={{ ...styles.chipText, color: journal.physical_activity.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                        >
+                            {label}
+                        </Chip>
+                   ))}
                 </View>
 
                 <TextPrimary style={styles.label}>Como está o seu sono?</TextPrimary>
                 <View style={styles.row}>
-                    {sleep.map( index => {
-                        return( <Chip onPress={() => setJournal({...journal, sleep: index.value})} selected={(journal.sleep === index.label)} key={index.label} style={styles.chip} textStyle={styles.chipText}>{index.label}</Chip>)
-                    })}
+                    {sleep.map(({ label, value }) => (
+                        <Chip
+                            selected={journal.sleep.includes(value)}
+                            onPress={() => selectUnselect({ value, key: 'sleep' })}
+                            key={label}
+                            style={journal.sleep.includes(value) ? selectedChip : styles.chip}
+                            textStyle={{ ...styles.chipText, color: journal.sleep.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                        >
+                            {label}
+                        </Chip>
+                   ))}
                 </View>
 
                 <TextPrimary style={styles.label}>Como está sua alimentação?</TextPrimary>
                 <View style={styles.row}>
-                    {food.map( index => {
-                        return(<Chip onPress={() => setJournal({...journal, feed: index.value})}  selected={(journal.feed === index.label)} key={index.label} style={styles.chip} textStyle={styles.chipText}>{index.label}</Chip>)
-                    })}
+                    {food.map(({ label, value }) => (
+                        <Chip
+                            selected={journal.feed.includes(value)}
+                            onPress={() => selectUnselect({ value, key: 'feed' })}
+                            key={label}
+                            style={journal.feed.includes(value) ? selectedChip : styles.chip}
+                            textStyle={{ ...styles.chipText, color: journal.feed.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                        >
+                            {label}
+                        </Chip>
+                   ))}
                 </View>
 
                 <TextPrimary style={styles.label}>Teve algum sintoma físico?</TextPrimary>
                 <View style={styles.row}>
-                    {symptoms.map( index => {
-                        return(<Chip onPress={() => setSymptoms(index.value)} key={index.label} style={styles.chip} textStyle={styles.chipText}>{index.label}</Chip>)
-                    })}
+                    {symptoms.map(({ label, value }) => (
+                        <Chip
+                            selected={journal.symptoms.includes(value)}
+                            onPress={() => addRemoveItemArray({ value, key: 'symptoms'})}
+                            key={label}
+                            style={journal.symptoms.includes(value) ? selectedChip : styles.chip}
+                            textStyle={{ ...styles.chipText, color: journal.symptoms.includes(value)  ? '#4b4b4b' : styles.chipText.color }}
+                        >
+                            {label}
+                        </Chip>
+                   ))}
                 </View>
 
                 <TextPrimary style={styles.label}>Anote aqui o que quiser</TextPrimary>
