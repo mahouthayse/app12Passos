@@ -17,6 +17,7 @@ export default function TestimonialDetails({ route, navigation }) {
     const { userData } = useContext(AuthContext);
     const token = userData.token;
     const [testimonial, setTestimonial] = useState({});
+    const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true)
 
     async function fetchTestimonialDetails(){
@@ -29,8 +30,20 @@ export default function TestimonialDetails({ route, navigation }) {
         }
     }
 
+    async function fetchComments(){
+        try {
+            const response = await api.get(`/comments?testimonial=${id}`, { headers: { Authorization: `Bearer ${token}` }});
+            setComments(response.data)
+            setLoading(false)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         fetchTestimonialDetails()
+        fetchComments()
+
     }, [])
 
     if(loading){
