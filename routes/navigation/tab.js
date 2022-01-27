@@ -5,8 +5,7 @@ import Home from "../../Pages/Home";
 import Steps from "../../Pages/Steps/HomeSteps";
 import ListTestimonials from "../../Pages/Testimonials/ListTestimonials";
 import Journal from "../../Pages/Journal";
-import { MaterialIcons } from '@expo/vector-icons';
-import { AntDesign, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign, Entypo, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
@@ -39,7 +38,7 @@ export default function TabNavigation() {
       <Tab.Screen 
         name='Passos' 
         component={Steps} 
-        options={{ tabBarIcon: ({ color, size }) => <FontAwesome5 name="shoe-prints" size={size} color={color} /> }}
+        options={{ tabBarIcon: ({ color, size }) => <FontAwesome5 name="shoe-prints" size={22} color={color} /> }}
       />
       <Tab.Screen
         name='Relatos'
@@ -49,7 +48,7 @@ export default function TabNavigation() {
       <Tab.Screen
         name='Diário'
         component={Journal}
-        options={{ tabBarIcon: ({ color, size }) => <AntDesign name="profile" size={size} color={color} /> }}
+        options={{ tabBarIcon: ({ color, size }) => <Entypo name="book" size={size} color={color} /> }}
       />
     </Tab.Navigator>
   )
