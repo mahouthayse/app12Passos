@@ -21,6 +21,7 @@ export default function TabNavigation() {
           tabBarInactiveTintColor: '#22242A',
           headerShown: false,
           tabBarShowLabel: true,
+          tabBarStyle: { borderTopWidth: 0, elevation: 0 },
           tabBarLabel: () => {
             if (route.name === 'Home') return navigation.isFocused() ? <CustomText>Início</CustomText> : null;
             else return navigation.isFocused() ? <CustomText>{route.name}</CustomText> : null;
@@ -43,7 +44,7 @@ export default function TabNavigation() {
       <Tab.Screen
         name='Relatos'
         component={ListTestimonials}
-        options={{ tabBarIcon: ({ color, size }) => <MaterialIcons name="notes" size={size} color={color} /> }}
+        options={{ tabBarIcon: ({ color, size }) => <Entypo name="newsletter" size={size} color={color} /> }}
       />
       <Tab.Screen
         name='Diário'
