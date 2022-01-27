@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../Pages/Home";
 import Steps from "../../Pages/Steps/HomeSteps";
 import ListTestimonials from "../../Pages/Testimonials/ListTestimonials";
+import Journal from "../../Pages/Journal";
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign, Entypo, FontAwesome5 } from '@expo/vector-icons';
 import { Text } from 'react-native';
@@ -46,8 +47,8 @@ export default function TabNavigation() {
         options={{ tabBarIcon: ({ color, size }) => <MaterialIcons name="notes" size={size} color={color} /> }}
       />
       <Tab.Screen
-        name='Questionário'
-        component={Home}
+        name='Diário'
+        component={Journal}
         options={{ tabBarIcon: ({ color, size }) => <AntDesign name="profile" size={size} color={color} /> }}
       />
     </Tab.Navigator>
