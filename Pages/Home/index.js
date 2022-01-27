@@ -7,7 +7,8 @@ import global from "../../Style/global";
 import colors from "../../Style/colors";
 import {useNavigation} from "@react-navigation/native";
 import Passos from "../../assets/passo1.png";
-import Relatos from "../../assets/passo11.png";
+import Relatos from "../../assets/passo8.png";
+import Objetivo from "../../assets/passo9.png";
 import AuthContext from "../../contexts/auth";
 
 export default function Home() {
@@ -46,7 +47,7 @@ export default function Home() {
                 </TouchableOpacity>
 
                 <TouchableOpacity  onPress={() =>navigate("Objetivo")}>
-                    <ImageBackground source={Relatos} style={{width:160, padding:10, height:160, alignItems: 'center', justifyContent:'center',  marginVertical:16}}
+                    <ImageBackground source={Objetivo} style={{width:160, padding:10, height:160, alignItems: 'center', justifyContent:'center',  marginVertical:16}}
                                      imageStyle={{borderRadius:10}}>
                         <TitlePrimary style={{color: `${colors.white}`, elevation:2, fontSize:28}}>Defina um objetivo</TitlePrimary>
                     </ImageBackground>
