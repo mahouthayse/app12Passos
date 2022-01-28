@@ -40,7 +40,7 @@ export default function ForgotPassword() {
                         />
                         <Button mode='contained' style={global.buttonPrimary} labelStyle={global.labelPrimary} onPress={() => {}} contentStyle={{width:'100%', height:45}}>Enviar</Button>
 
-                        <Image source={LogoPrimary} style={{alignSelf:'center', height:100, width:100, marginVertical:32}}/>
+                        <Image source={LogoPrimary} style={{alignSelf:'center', height:80, width:80, marginVertical:32}}/>
 
                     </View>
                 <AlertBar
