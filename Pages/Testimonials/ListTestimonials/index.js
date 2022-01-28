@@ -6,7 +6,7 @@ import NavBar from "../../../Components/NavBar";
 import colors from "../../../Style/colors";
 import api from "../../../services/api";
 import AuthContext from "../../../contexts/auth";
-import {Button} from "react-native-paper";
+import {ActivityIndicator, Button} from "react-native-paper";
 import global from "../../../Style/global";
 import {useNavigation} from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
@@ -18,11 +18,13 @@ export default function ListTestimonials() {
     const { userData } = useContext(AuthContext);
     const token = userData.token;
     const [testimonials, setTestimonials] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     async function fetchTestimonials(){
         try {
             const response = await api.get('/testimonials?limit=20&page=1', { headers: { Authorization: `Bearer ${token}` }});
             setTestimonials(response.data)
+            setLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -31,6 +33,14 @@ export default function ListTestimonials() {
     useEffect(() => {
         fetchTestimonials()
     }, [])
+
+    if(loading) {
+        return (
+            <View style={{ flex:1, backgroundColor:`${colors.white}`, alignItems:'center', justifyContent:'center' }}>
+                <ActivityIndicator size="large" animating={true} color={colors.primary} />
+            </View>
+        );
+    }
 
     return (
         <View style={{flex:1, backgroundColor:`${colors.white}`}}>
