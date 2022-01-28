@@ -4,12 +4,13 @@ import {TextPrimary, TitleManuscript, TitlePrimary, ViewPrimary} from "../../../
 import {ScrollView,View, Image} from "react-native";
 import Passo12 from "../../../assets/passo12.png";
 import NavBar from "../../../Components/NavBar";
+import colors from '../../../Style/colors';
 
 export default function Step12() {
     return (
         <View style={{flex:1}}>
             <NavBar title="Passo 12" url="Passos"/>
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: colors.white }}>
                 <Image source={Passo12} style={{ width:'95%', alignSelf:'flex-start', borderTopRightRadius: 15, borderBottomRightRadius:15}}/>
                 <View style={{display: 'flex', flexDirection: 'column', padding:20}}>
                     <TitleManuscript style={{alignSelf:'flex-start'}}>Passo 12</TitleManuscript>
