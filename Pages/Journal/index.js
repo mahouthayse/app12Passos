@@ -114,7 +114,7 @@ export default function Journal() {
     return (
         <View style={{flex:1, backgroundColor:`${colors.white}`}}>
             <NavBar title="Diário" url="Home"/>
-            <ScrollView style={{padding:20}}>
+            <ScrollView style={{ paddingHorizontal: 20 }}>
 
                 <TextPrimary style={styles.label}>Como está o seu humor?</TextPrimary>
                <View style={styles.row}>
