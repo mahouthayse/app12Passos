@@ -77,11 +77,10 @@ export default function PostTestimonial() {
                     onChangeText={(text) => setText(text)}
                     style={{
                         marginBottom:16,
-                        padding:8,
                         color: `${colors.title}`,
                         fontFamily: 'montserrat_medium',
                         fontSize: 14,
-                        height:50,
+                        height: '70%',
                         textAlignVertical: 'top'
                     }}
                     placeholder='O que você gostaria de compartilhar?'
