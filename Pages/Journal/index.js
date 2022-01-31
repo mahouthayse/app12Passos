@@ -1,5 +1,4 @@
-
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {TextPrimary, TitleManuscript, TitlePrimary, ViewPrimary} from "../../Style/globalStyles";
 import {ScrollView, View, TextInput, StyleSheet} from "react-native";
 import NavBar from "../../Components/NavBar";
@@ -7,6 +6,7 @@ import colors from "../../Style/colors";
 import {Button, Chip} from "react-native-paper";
 import global from "../../Style/global";
 import AuthContext from "../../contexts/auth";
+import api from '../../services/api';
 
 const mood = [
     { label: 'Irritado', value: 'Irritado'},
@@ -85,17 +85,17 @@ export default function Journal() {
     const token = userData.token;
     const [journal, setJournal] = useState({
         user: userData.id,
-        mood: [],
-        physical_activity:'',
-        sleep:'',
-        feed:'',
-        symptoms:[],
-        date: new Date(),
-        observations:''
+        // mood: [],
+        // physical_activity:'',
+        // sleep:'',
+        // feed:'',
+        // symptoms:[],
+        // date: new Date(),
+        // observations:''
     })
 
     function addRemoveItemArray({ value, key }) {
-        const arr = [...journal[key]];
+        const arr = journal[key] ? [...journal[key]] : [];
         const index = arr.indexOf(value);
         if (index !== -1) arr.splice(index, 1);
         else arr.push(value);
@@ -111,6 +111,15 @@ export default function Journal() {
         setJournal(data);
     }
 
+    async function submit() {
+        try {
+            const opts = { headers: { Authorization: `Bearer ${token}` } };
+            await api.post('/diary', journal, opts);
+        } catch (error) {
+            console.log(error.response.data.error);
+        }
+    }
+
     return (
         <View style={{flex:1, backgroundColor:`${colors.white}`}}>
             <NavBar title="Diário" url="Home"/>
@@ -120,11 +129,11 @@ export default function Journal() {
                <View style={styles.row}>
                    {mood.map(({ label, value }) => (
                         <Chip
-                            selected={journal.mood.includes(value)}
+                            selected={journal.mood?.includes(value)}
                             onPress={() => addRemoveItemArray({ value, key: 'mood' })}
                             key={label}
-                            style={journal.mood.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
-                            textStyle={journal.mood.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
+                            style={journal.mood?.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.mood?.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -135,11 +144,11 @@ export default function Journal() {
                 <View style={styles.row}>
                     {physicalActivity.map(({ label, value }) => (
                         <Chip
-                            selected={journal.physical_activity.includes(value)}
-                            onPress={() => addRemoveItemArray({ value, key: 'physical_activity'})}
+                            selected={journal.physical_activity?.includes(value)}
+                            onPress={() => selectUnselect({ value, key: 'physical_activity'})}
                             key={label}
-                            style={journal.physical_activity.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
-                            textStyle={journal.physical_activity.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
+                            style={journal.physical_activity?.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.physical_activity?.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -150,11 +159,11 @@ export default function Journal() {
                 <View style={styles.row}>
                     {sleep.map(({ label, value }) => (
                         <Chip
-                            selected={journal.sleep.includes(value)}
+                            selected={journal.sleep?.includes(value)}
                             onPress={() => selectUnselect({ value, key: 'sleep' })}
                             key={label}
-                            style={journal.sleep.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
-                            textStyle={journal.sleep.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
+                            style={journal.sleep?.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.sleep?.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -165,11 +174,11 @@ export default function Journal() {
                 <View style={styles.row}>
                     {food.map(({ label, value }) => (
                         <Chip
-                            selected={journal.feed.includes(value)}
+                            selected={journal.feed?.includes(value)}
                             onPress={() => selectUnselect({ value, key: 'feed' })}
                             key={label}
-                            style={journal.feed.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
-                            textStyle={journal.feed.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
+                            style={journal.feed?.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.feed?.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -180,11 +189,11 @@ export default function Journal() {
                 <View style={styles.row}>
                     {symptoms.map(({ label, value }) => (
                         <Chip
-                            selected={journal.symptoms.includes(value)}
+                            selected={journal.symptoms?.includes(value)}
                             onPress={() => addRemoveItemArray({ value, key: 'symptoms'})}
                             key={label}
-                            style={journal.symptoms.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
-                            textStyle={journal.symptoms.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
+                            style={journal.symptoms?.includes(value) ? [styles.chip, styles.selectedChip] : styles.chip}
+                            textStyle={journal.symptoms?.includes(value) ? [styles.chipText, styles.selectedChipText] : styles.chipText}
                         >
                             {label}
                         </Chip>
@@ -212,7 +221,15 @@ export default function Journal() {
                 />
 
 
-                <Button mode='contained' style={global.buttonPrimary} labelStyle={global.labelPrimary} onPress={() => {}} contentStyle={{width:'100%', height:45}}>Salvar</Button>
+                <Button
+                    mode='contained'
+                    style={global.buttonPrimary}
+                    labelStyle={global.labelPrimary}
+                    onPress={submit}
+                    contentStyle={{width:'100%', height:45}}
+                >
+                    Salvar
+                </Button>
 
             </ScrollView>
         </View>
